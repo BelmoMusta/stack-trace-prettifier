@@ -10,6 +10,8 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -43,81 +45,21 @@ public class StackTrace {
 		return linesOfPackage;
 	}
 	
-	@Override
-	public String toString() {
-		try {
-			return toJson();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
-	public String toHtml() {
-		StringBuilder stringBuilder = new StringBuilder();
-		if (causedBy != null) {
-			stringBuilder.append("Cause By ");
-			stringBuilder.append(causedBy.toHtml());
-		}
-		return "<!DOCTYPE html>\n" +
-				"<html>\n" +
-				"<head>\n" +
-				"\t<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min" +
-				".css\">\n" +
-				"\n" +
-				"<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js\"></script>\n" +
-				"\t<title></title>\n" +
-				"</head>\n" +
-				"<body>" +
-				firstLine + // compact
-				"<table class=\"table table-striped\">" +
-				"<tr>\n" +
-				"    <th>Class Name</th>\n" +
-				"    <th>File Name</th>\n" +
-				"    <th>Method Name</th>\n" +
-				"    <th>Line number</th>\n" +
-				"  </tr>"
-				+ toTrTdTable()
-				+ "</table>" +
-				stringBuilder
-				+ "</body>\n" +
-				"</html>";
-	}
-	
-	public String toTrTdTable() {
-		StringBuilder stringBuilder = new StringBuilder();
+	public List<TraceElement> excludeLinesOfPackages(List<String> packageName) {
+		Predicate<TraceElement> predicate =   traceElement -> true;
 		
-		for (TraceElement stackTraceElement : stackTraceLines) {
-			stringBuilder.append("<tr>\n");
-			
-			stringBuilder.append("<td>\n");
-			stringBuilder.append(stackTraceElement.getClassName());
-			stringBuilder.append("</td>\n");
-			
-			stringBuilder.append("<td>\n");
-			stringBuilder.append(Optional.ofNullable(stackTraceElement.getFileName()).orElse(""));
-			stringBuilder.append("</td>\n");
-			
-			stringBuilder.append("<td>\n");
-			stringBuilder.append(stackTraceElement.getMethodName());
-			stringBuilder.append("</td>\n");
-			
-			stringBuilder.append("<td>\n");
-			stringBuilder.append(Optional.of(stackTraceElement.getLineNumber())
-					.map(String::valueOf)
-					.orElse(""));
-			stringBuilder.append("</td>\n");
-			
-			
-			stringBuilder.append("</tr>\n");
+		for (String pkgName : packageName) {
+			predicate = predicate.and(traceElement -> !traceElement.getPackageName().contains(pkgName));
 		}
-		return stringBuilder.toString();
+		return stackTraceLines.stream()
+				.filter(predicate)
+				.collect(Collectors.toList());
 	}
 	
-	String toJson() throws IOException {
-		StringWriter stringWriter = new StringWriter();
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.writeValue(stringWriter, this);
-		return stringWriter.toString();
+	
+	public List<TraceElement> getImportantLines() {
+		List<String> nonImportantPackages = Config.get().getNonImportantPackages();
+		return excludeLinesOfPackages(nonImportantPackages);
 	}
 	
 }
