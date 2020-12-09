@@ -16,6 +16,13 @@ function StackTrace(props) {
                 </Tree>
             ))}</Tree>}
 
+            {trace.importantLines &&
+            <Tree content={trace.importantLines.length + "  IMPORTANT LINES"}>{(trace.importantLines.map(l =>
+                <Tree type="" content={<Line line={l}/>}>
+                   <Method method={{ name: l.methodName, lineNumber: l.lineNumber}}/>
+                </Tree>
+            ))}</Tree>}
+
             {trace.causedBy && <Tree content={"CAUSED BY"}> <StackTrace trace={trace.causedBy}/></Tree>}
         </span>
     );
