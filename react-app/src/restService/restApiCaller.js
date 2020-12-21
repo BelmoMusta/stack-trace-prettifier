@@ -4,7 +4,7 @@ export function post(input, callback) {
         body: input
     };
 
-   return  fetch('http://localhost:8080/prettify', requestOptions)
+   return  fetch('http://51.222.106.8:8080/prettify', requestOptions)
        .then(res => res.json())
        .then(data => callback(data))
 
