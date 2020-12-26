@@ -12,8 +12,8 @@
     <artifactId>stack-trace-prettifier</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>stack-trace-prettifier</name>
-    <packaging>war</packaging>
-    <description>Demo project for Spring Boot</description>
+    <packaging>jar</packaging>
+    <description>StackTrace Prettifier backend</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -58,6 +58,17 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <finalName>stack</finalName>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
