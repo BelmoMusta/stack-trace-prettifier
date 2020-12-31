@@ -1,38 +1,90 @@
 @import "~bootstrap";
-@media (min-width: 768px) {
-  .h-md-100 { height: 100vh; }
-}
-.btn-round { border-radius: 30px; }
-.bg-indigo { background: indigo; }
-.text-cyan { color: #35bdff; }
 
-.textarea
-{
-  width:100%;
+@media (min-width: 768px) {
+  .h-md-100 {
+    height: 100vh;
+  }
 }
-.textwrapper
-{
-  border:1px solid #999999;
-  margin:5px 0;
-  padding:3px;
+
+.btn-round {
+  border-radius: 30px;
 }
-.formitem{
+
+.bg-indigo {
+  background: indigo;
+}
+
+.text-cyan {
+  color: #35bdff;
+}
+
+.textarea {
+  width: 100%;
+}
+
+.textwrapper {
+  border: 1px solid #999999;
+  margin: 5px 0;
+  padding: 3px;
+}
+
+.formitem {
   display: block;
 }
-.scrollable{
+
+.scrollable {
   overflow-y: auto;
   overflow-x: auto;
 
 }
 
-.yellow{
-  color: #ff5100;
-}
-.blue{
-  color: #033758;
+.package {
+  color: #F7D186;
 }
 
-.filter{
+.blue {
+  color: #15EABF;
+}
+
+.class {
+  color: #7BA2F4;
+}
+.class:hover {
+  background-color: #d8dde8;
+  color: #011627;
+}
+
+.method {
+  font-weight: bold;
+  color: #669000;
+}
+
+.method:hover {
+  font-weight: bold;
+  background-color: #61dafb;
+  color: #133b03;
+}
+
+.number {
+  color: #F78C6C;
+}
+
+.filter {
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.hidden {
+  display: none;
+}
+
+.dark-background {
+  background-color: #011627;
+}
+
+
+///// tooltip
+
+.prolog {
+  color: #C16BF6;
 }
