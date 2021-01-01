@@ -19,7 +19,8 @@ function StackTrace(props) {
 
 
             {trace.causedBy &&
-            <Tree content={<span className={"package"}>CAUSED BY</span>}> <StackTrace trace={trace.causedBy}/></Tree>}
+            <Tree content={<span className={"package"}>CAUSED BY</span>}>
+                <StackTrace trace={trace.causedBy}/></Tree>}
         </span>
     );
 
