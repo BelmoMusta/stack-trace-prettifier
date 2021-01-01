@@ -1,8 +1,10 @@
 @import "~bootstrap";
+@import "./vars";
 
 @media (min-width: 768px) {
   .h-md-100 {
     height: 100vh;
+    width: 100vh;
   }
 }
 
@@ -11,62 +13,40 @@
 }
 
 .bg-indigo {
-  background: indigo;
-}
-
-.text-cyan {
-  color: #35bdff;
-}
-
-.textarea {
-  width: 100%;
-}
-
-.textwrapper {
-  border: 1px solid #999999;
-  margin: 5px 0;
-  padding: 3px;
-}
-
-.formitem {
-  display: block;
+  background: #61dafb;
 }
 
 .scrollable {
   overflow-y: auto;
-  overflow-x: auto;
-
+ // overflow-x: auto;
 }
 
 .package {
-  color: #F7D186;
-}
-
-.blue {
-  color: #15EABF;
+  color: $packageColor;
 }
 
 .class {
-  color: #7BA2F4;
+  color: $classColor;
 }
+
 .class:hover {
-  background-color: #d8dde8;
-  color: #011627;
+  background-color: $classBackgroundColor;
+  color: $classHoverColor;
 }
 
 .method {
   font-weight: bold;
-  color: #669000;
+  color: $methodColor;
 }
 
 .method:hover {
   font-weight: bold;
-  background-color: #61dafb;
-  color: #133b03;
+  background-color: $methodHoverBackgroundColor;
+  color: $methodHoverColor;
 }
 
 .number {
-  color: #F78C6C;
+  color: $numberColor;
 }
 
 .filter {
@@ -79,12 +59,26 @@
 }
 
 .dark-background {
-  background-color: #011627;
+  background-color: $classHoverColor;
 }
 
+svg {
+  @extend .package;
+  fill: white;
+}
 
-///// tooltip
+.treeview {
+
+  @extend .package;
+
+}
 
 .prolog {
-  color: #C16BF6;
+  color: $prologColor;
+}
+
+textarea {
+ width: 95%;
+  margin: 12px;
+  box-sizing: border-box;
 }
