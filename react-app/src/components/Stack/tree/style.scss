@@ -13,12 +13,12 @@
 }
 
 .bg-indigo {
-  background: #61dafb;
+  background: #e89110;
 }
 
 .scrollable {
   overflow-y: auto;
- // overflow-x: auto;
+  // overflow-x: auto;
 }
 
 .package {
@@ -50,8 +50,7 @@
 }
 
 .filter {
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 16px;
 }
 
 .hidden {
@@ -68,7 +67,7 @@ svg {
 }
 
 .treeview {
-
+  font-family: 'Fira Code', monospace;
   @extend .package;
 
 }
@@ -77,8 +76,22 @@ svg {
   color: $prologColor;
 }
 
+.prettify-button {
+  margin-right: 16px;
+  float: right;
+  color: $packageColor;
+  background-color: $classHoverColor;
+}
+
+.prettify-button:hover {
+  margin-right: 16px;
+  float: right;
+  color: $classHoverColor;
+  background-color: $packageColor;
+}
+
 textarea {
- width: 95%;
+  width: 95%;
   margin: 12px;
   box-sizing: border-box;
 }
