@@ -1,15 +1,11 @@
 package musta.belmo.stacktraceprettifier.service;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 

@@ -9,6 +9,7 @@ import st from '../../../data/stack'
 export default function FileSystemNavigator(props) {
     const [stacks, setStacks] = useState(st);
     const [input, setInput] = useState({});
+    const [filter, setFilter] = useState("");
 
     const config = open => ({
         from: {height: 0, opacity: 0, transform: 'translate3d(20px,0,0)'},
@@ -20,7 +21,7 @@ export default function FileSystemNavigator(props) {
     })
 
     function callApi() {
-        post(input.value,
+        post({rawStackTrace :input.value, filter},
             (data) => {
                 setStacks({});
                 setStacks(data);
@@ -30,6 +31,15 @@ export default function FileSystemNavigator(props) {
     const handleChange = function (event) {
         setInput({value: event.target.value});
     };
+
+    const handleFilter = function (event) {
+        setFilter(event.target.value);
+    };
+
+    function filterTree() {
+       callApi();
+
+    }
 
     return <span>
     <div>
@@ -42,7 +52,16 @@ export default function FileSystemNavigator(props) {
                 </div>
             </div>
             <div className="col-md-9 p-0  h-md-100 scrollable dark-background">
-
+                <div className="filter col-md-6">
+                    <div className={"input-group mb-3"}>
+                    <input type="text" placeholder="filter by package / or class name"
+                           className="form-control"
+                           onChange={handleFilter}/>
+                    <div className={"input-group-prepend"}>
+                        <button onClick={filterTree} className={"btn btn-primary"}> filter </button>
+                    </div>
+                </div>
+            </div>
             <div className="d-md-flex p-4">
                 <Tree open visible content="Stack trace" springConfig={config}>
                     <StackTrace trace={stacks}/>
