@@ -1,5 +1,6 @@
 package musta.belmo.stacktraceprettifier.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,8 +21,15 @@ public class StackTraceParser {
 	
 	
 	public StackTrace executeParsing(String rawStackTrace) {
+		return executeParsing(StringUtils.defaultString(rawStackTrace), null);
+	}
+	
+	public StackTrace executeParsing(String rawStackTrace, String filter) {
 		String string = preformate(rawStackTrace);
-		return parse(string);
+		return parse(string, filter);
+	}
+	public StackTrace executeParsing(TraceDTO traceDTO) {
+		return executeParsing(StringUtils.defaultString(traceDTO.getRawStackTrace()), traceDTO.getFilter());
 	}
 	
 	private static String preformate(String string) {
@@ -30,7 +38,7 @@ public class StackTraceParser {
 		return string.replaceAll("\\r", "\n");
 	}
 	
-	public static StackTrace parse(String stackTraceString) {
+	public static StackTrace parse(String stackTraceString, String filter) {
 		final List<StackTrace> stackTraces = new ArrayList<>();
 		final String[] stacks = stackTraceString.split("Caused by");
 		for (String causedBY : stacks) {
@@ -73,7 +81,9 @@ public class StackTraceParser {
 							fileName,
 							lineNumber
 					);
-					stackTraceLines.add(element);
+					if(element.contains(filter)) {
+						stackTraceLines.add(element);
+					}
 				}
 			}
 			StackTrace e = new StackTrace(firstLine, stackTraceLines);

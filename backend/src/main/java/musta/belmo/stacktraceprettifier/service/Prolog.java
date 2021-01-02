@@ -2,13 +2,8 @@ package musta.belmo.stacktraceprettifier.service;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.tomcat.jni.Local;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 @Getter
 @Setter

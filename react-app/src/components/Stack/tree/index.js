@@ -8,7 +8,6 @@ import st from '../../../data/stack'
 
 export default function FileSystemNavigator(props) {
     const [stacks, setStacks] = useState(st);
-    const [filteredStacks, setFilteredStacks] = useState(st);
     const [input, setInput] = useState({});
     const [filter, setFilter] = useState("");
 
@@ -22,10 +21,9 @@ export default function FileSystemNavigator(props) {
     })
 
     function callApi() {
-        post(input.value,
+        post({rawStackTrace :input.value, filter},
             (data) => {
                 setStacks({});
-                setFilteredStacks(null);
                 setStacks(data);
             });
     }
@@ -38,19 +36,8 @@ export default function FileSystemNavigator(props) {
         setFilter(event.target.value);
     };
 
-    function getStackTraceLines(stacks) {
-        if (stacks && stacks.stackTraceLines)
-            return stacks.stackTraceLines.filter(line => line.packageName.includes(filter));
-    }
-
     function filterTree() {
-        setFilteredStacks({
-            ...stacks,
-            stackTraceLines: getStackTraceLines(stacks),
-            causedBy: {
-                stackTraceLines: getStackTraceLines(stacks.causedBy)
-            }
-        });
+       callApi();
 
     }
 
@@ -77,7 +64,7 @@ export default function FileSystemNavigator(props) {
             </div>
             <div className="d-md-flex p-4">
                 <Tree open visible content="Stack trace" springConfig={config}>
-                    {filteredStacks ? <StackTrace trace={filteredStacks}/> : <StackTrace trace={stacks}/>}
+                    <StackTrace trace={stacks}/>
                 </Tree>
             </div>
         </div>
