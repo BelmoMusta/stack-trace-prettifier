@@ -10,6 +10,7 @@ export default function FileSystemNavigator(props) {
     const [stacks, setStacks] = useState(st);
     const [input, setInput] = useState({});
     const [filter, setFilter] = useState("");
+    const [filterAsProps, setFilterAsProps] = useState("");
 
     const config = open => ({
         from: {height: 0, opacity: 0, transform: 'translate3d(20px,0,0)'},
@@ -23,6 +24,8 @@ export default function FileSystemNavigator(props) {
     function callApi() {
         post({rawStackTrace :input.value, filter},
             (data) => {
+            if(filter) setFilterAsProps(filter);
+            else setFilterAsProps(null);
                 setStacks({});
                 setStacks(data);
             });
@@ -64,7 +67,7 @@ export default function FileSystemNavigator(props) {
             </div>
             <div className="d-md-flex p-4">
                 <Tree open visible content="Stack trace" springConfig={config}>
-                    <StackTrace trace={stacks}/>
+                    <StackTrace trace={stacks} filter={filterAsProps}/>
                 </Tree>
             </div>
         </div>
