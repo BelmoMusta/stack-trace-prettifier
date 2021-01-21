@@ -9,7 +9,7 @@ export function post(input, callback) {
         }
     };
 
-   return  fetch('https://51.222.106.8:8080/prettify', requestOptions)
+   return  fetch('http://10.42.5.139:8060/prettify', requestOptions)
        .then(res => res.json())
        .then(data => callback(data))
 

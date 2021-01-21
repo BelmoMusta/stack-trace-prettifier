@@ -14,10 +14,14 @@ public class StackTraceParser {
 	public static final String STACK_TRACE_LINE_REGEX = "^[\\t ]*at ((?:(?:[\\d\\w]*\\.)*[\\d\\w]*))\\." +
 			"([\\d\\w\\$]*)" +
 			"\\." +
-			"([\\d\\w\\$]*)" +
+			"([\\d\\w\\$<>]*)" +
 			"\\((?:(?:([\\d\\w]*\\.java):(\\d*))|([\\d\\w\\s]*))\\)\\r?$";
 	
 	private static Pattern STACK_TRACE_LINE_PATTERN = Pattern.compile(STACK_TRACE_LINE_REGEX);
+	
+	public static void main(String[] args) {
+		System.out.println(STACK_TRACE_LINE_REGEX);
+	}
 	
 	
 	public StackTrace executeParsing(String rawStackTrace) {
