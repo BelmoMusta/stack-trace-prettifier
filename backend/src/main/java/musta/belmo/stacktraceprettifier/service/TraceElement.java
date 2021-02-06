@@ -9,12 +9,11 @@ import org.apache.commons.lang3.StringUtils;
 @Setter
 @AllArgsConstructor
 public class TraceElement {
-	
-	private final String packageName;
-	private final String className;
-	private final String methodName;
-	private final String fileName;
-	private final String lineNumber;
+	private String packageName;
+	private String className;
+	private String methodName;
+	private String fileName;
+	private String lineNumber;
 	
 	public boolean contains(String searchString) {
 		if (StringUtils.isBlank(searchString)) return true;
@@ -26,4 +25,11 @@ public class TraceElement {
 		
 	}
 	
+	@Override
+	public String toString() {
+		return packageName + "." +
+				className + "." +
+				methodName + "." +
+				lineNumber +'\n';
+	}
 }

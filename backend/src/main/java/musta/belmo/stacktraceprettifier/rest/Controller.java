@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,5 +28,14 @@ public class Controller {
 	@PostMapping(value = "/prettify", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public StackTrace prettify(@RequestBody TraceDTO traceDTO) {
 		return stackTraceParser.executeParsing(traceDTO);
+	}
+	
+	@PostMapping(value = "/as-jira-comment", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public String toJiraCommentString(@RequestBody TraceDTO traceDTO) {
+		return stackTraceParser.toJiraCommentString(traceDTO);
+	}
+	@PostMapping(value = "/string-as-jira-comment", consumes = MediaType.TEXT_PLAIN_VALUE)
+	public String toJiraCommentString(@RequestBody String traceDTO, @RequestParam(defaultValue = "") String filter) {
+		return stackTraceParser.toJiraCommentString(traceDTO, filter);
 	}
 }
